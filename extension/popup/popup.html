@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="brand"><span class="flame">🔥</span> Burner</div>
+    <div class="site" id="site">…</div>
+    <nav>
+      <button id="nav-persona" class="navbtn active" title="Identity">👤</button>
+      <button id="nav-sites" class="navbtn" title="Sites used">🗂</button>
+      <button id="nav-settings" class="navbtn" title="Settings">⚙</button>
+    </nav>
+  </header>
+
+  <main id="view-persona">
+    <button id="fill" class="cta">Fill this page</button>
+    <div id="fill-status" class="status"></div>
+    <div class="card" id="card"></div>
+    <div class="row-actions">
+      <button id="regen" class="ghost">↻ New identity for this site</button>
+    </div>
+  </main>
+
+  <main id="view-sites" hidden>
+    <div class="hint">Every site you've filled, and the exact email it got. Spam arriving on one of these means that site leaked or sold it.</div>
+    <div id="sites-list"></div>
+  </main>
+
+  <main id="view-settings" hidden>
+    <label class="field">Email mode
+      <select id="set-emailmode">
+        <option value="fake">Fully fake (can't receive mail)</option>
+        <option value="plus">My email + site tag (traceable, mail arrives)</option>
+        <option value="catchall">My catch-all domain (traceable, private)</option>
+      </select>
+    </label>
+    <label class="field" id="wrap-realemail" hidden>Your real email
+      <input id="set-realemail" type="email" placeholder="you@gmail.com">
+    </label>
+    <label class="field" id="wrap-catchall" hidden>Catch-all domain
+      <input id="set-catchall" type="text" placeholder="mydomain.com">
+    </label>
+    <label class="field">Name locale
+      <select id="set-locale"></select>
+    </label>
+    <label class="field">Password length
+      <input id="set-pwlen" type="number" min="8" max="40" step="1">
+    </label>
+    <div class="hint warn">Changing locale or seed changes every persona. Personas are derived from the seed below — back it up to keep the same identities after a reinstall.</div>
+    <label class="field">Master seed
+      <div class="seedrow">
+        <input id="set-seed" type="text" spellcheck="false">
+        <button id="copy-seed" class="ghost small">Copy</button>
+      </div>
+    </label>
+    <button id="save-settings" class="cta">Save</button>
+    <div id="settings-status" class="status"></div>
+  </main>
+
+  <div id="toast"></div>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
