@@ -21,7 +21,7 @@ function toast(msg) {
   toast._t = setTimeout(() => t.classList.remove('show'), 1100);
 }
 
-/* interactive demo */
+/* ---------- interactive demo ---------- */
 function currentSite() {
   const raw = $('d-site').value.trim().toLowerCase();
   if (!raw) return null;
@@ -65,7 +65,7 @@ async function render() {
     vv.textContent = v;
     const cp = document.createElement('span');
     cp.className = 'cp';
-    cp.textContent = 'copy';
+    cp.textContent = 'click to copy';
     row.append(kk, vv, cp);
     row.addEventListener('click', async () => {
       await navigator.clipboard.writeText(v);
@@ -103,65 +103,51 @@ $('d-regen').addEventListener('click', () => {
 });
 render();
 
-/* hero: self-filling browser mockup */
+/* ---------- hero ID card: regenerating identity papers ---------- */
 const SHOWCASE = [
   ['netflix.com', 'en_US'], ['spotify.com', 'en_GB'], ['steampowered.com', 'de_DE'],
   ['reddit.com', 'en_US'], ['airbnb.com', 'fr_FR'], ['zalando.com', 'da_DK'],
 ];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function typeInto(el, text, mask = false) {
-  el.innerHTML = '<span class="txt"></span><span class="caret"></span>';
-  const span = el.querySelector('.txt');
-  for (let i = 0; i < text.length; i++) {
-    span.textContent += mask ? '•' : text[i];
-    await sleep(14 + Math.random() * 22);
-  }
-  el.querySelector('.caret')?.remove();
-}
-
-async function heroLoop() {
-  const url = $('m-url'), name = $('m-name'), email = $('m-email'),
-        pass = $('m-pass'), btn = $('m-btn'), badge = $('m-badge');
-  let i = 0;
-  for (;;) {
-    const [site, locale] = SHOWCASE[i % SHOWCASE.length];
-    const p = await generatePersona({
-      masterSeed: 'showcase', site, counter: 0, data,
-      settings: { ...DEFAULT_SETTINGS, locale },
-    });
-    url.textContent = `${site}/signup`;
-    for (const el of [name, email, pass]) el.textContent = '';
-    badge.classList.remove('show');
-    await sleep(650);
-    await typeInto(name, p.fullName);
-    await typeInto(email, p.email);
-    await typeInto(pass, p.password.slice(0, 12), true);
-    await sleep(280);
-    btn.classList.add('press');
-    await sleep(160);
-    btn.classList.remove('press');
-    badge.classList.add('show');
-    await sleep(2600);
-    i++;
-  }
-}
-
-async function heroStatic() {
+async function cardPersona(i) {
+  const [site, locale] = SHOWCASE[i % SHOWCASE.length];
   const p = await generatePersona({
-    masterSeed: 'showcase', site: 'netflix.com', counter: 0, data,
-    settings: { ...DEFAULT_SETTINGS },
+    masterSeed: 'showcase', site, counter: 0, data,
+    settings: { ...DEFAULT_SETTINGS, locale },
   });
-  $('m-url').textContent = 'netflix.com/signup';
-  $('m-name').textContent = p.fullName;
-  $('m-email').textContent = p.email;
-  $('m-pass').textContent = '••••••••••••';
-  $('m-badge').classList.add('show');
+  return { site, p };
 }
 
-if (reduced) heroStatic(); else heroLoop();
+function setCard(site, p, serial) {
+  $('c-site').textContent = site;
+  $('c-name').textContent = p.fullName;
+  $('c-email').textContent = p.email;
+  $('c-dob').textContent = p.dobISO;
+  $('c-phone').textContent = p.phone;
+  $('c-user').textContent = p.username;
+  $('c-no').textContent = `${site.slice(0, 2)}-${String(1000 + serial * 137 % 9000)} · self-issued · non-transferable`;
+}
 
-/* identity ticker */
+async function cardLoop() {
+  const swap = $('id-swap');
+  let i = 0;
+  const first = await cardPersona(0);
+  setCard(first.site, first.p, 0);
+  if (reduced) return;
+  for (;;) {
+    await sleep(4200);
+    i++;
+    const next = await cardPersona(i);
+    swap.classList.add('out');
+    await sleep(300);
+    setCard(next.site, next.p, i);
+    swap.classList.remove('out');
+  }
+}
+cardLoop();
+
+/* ---------- ticker: credits roll of aliases ---------- */
 async function buildTicker() {
   const track = $('ticker');
   const locales = Object.keys(data.locales);
@@ -174,19 +160,8 @@ async function buildTicker() {
     });
     // skip non-Latin names: their emails romanize to a fallback and look mismatched
     if (!/^[\x20-\x7eÀ-ɏ]+$/.test(p.fullName)) continue;
-    pills.push(`<span class="pill"><b>${p.fullName}</b> ${p.email} <span class="loc">${locale}</span></span>`);
+    pills.push(`<span class="pill"><b>${p.fullName}</b> — ${p.email}<span class="loc">${locale}</span></span>`);
   }
   track.innerHTML = pills.join('') + pills.join(''); // duplicate for seamless loop
 }
 buildTicker();
-
-/* scrollspy */
-const spyLinks = [...document.querySelectorAll('[data-spy]')];
-const spyTargets = spyLinks.map((a) => document.querySelector(a.getAttribute('href')));
-const spy = new IntersectionObserver((entries) => {
-  for (const en of entries) {
-    if (!en.isIntersecting) continue;
-    spyLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === `#${en.target.id}`));
-  }
-}, { rootMargin: '-30% 0px -60% 0px' });
-spyTargets.forEach((t) => t && spy.observe(t));
