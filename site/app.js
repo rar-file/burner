@@ -4,7 +4,7 @@ const $ = (id) => document.getElementById(id);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const data = await (await fetch('personas.json')).json();
 
-/* ---------- visitor seed (localStorage → determinism survives refresh) ---------- */
+/* visitor seed — kept in localStorage so refreshes prove determinism */
 let seed = localStorage.getItem('burner-demo-seed');
 if (!seed) {
   const bytes = crypto.getRandomValues(new Uint8Array(16));
@@ -21,7 +21,7 @@ function toast(msg) {
   toast._t = setTimeout(() => t.classList.remove('show'), 1100);
 }
 
-/* ---------- interactive demo ---------- */
+/* interactive demo */
 function currentSite() {
   const raw = $('d-site').value.trim().toLowerCase();
   if (!raw) return null;
@@ -41,7 +41,6 @@ function settings() {
 async function render() {
   const site = currentSite();
   const card = $('d-card');
-  $('d-shown').textContent = site || '…';
   if (!site) { card.innerHTML = ''; return; }
   const p = await generatePersona({
     masterSeed: seed, site, counter: counters[site] || 0, data, settings: settings(),
@@ -55,10 +54,9 @@ async function render() {
     ['Phone', p.phone, false],
     ['Birthday', p.dobISO, false],
   ];
-  rows.forEach(([k, v, mono], i) => {
+  for (const [k, v, mono] of rows) {
     const row = document.createElement('div');
     row.className = 'prow';
-    row.style.animationDelay = `${i * 42}ms`;
     const kk = document.createElement('span');
     kk.className = 'k';
     kk.textContent = k;
@@ -74,7 +72,7 @@ async function render() {
       toast(`${k} copied`);
     });
     card.append(row);
-  });
+  }
 }
 
 function syncAux() {
@@ -102,34 +100,29 @@ $('d-regen').addEventListener('click', () => {
   counters[site] = (counters[site] || 0) + 1;
   localStorage.setItem('burner-demo-counters', JSON.stringify(counters));
   render();
-  toast('New identity minted');
 });
 render();
 
-/* ---------- hero: self-filling browser mockup ---------- */
+/* hero: self-filling browser mockup */
 const SHOWCASE = [
   ['netflix.com', 'en_US'], ['spotify.com', 'en_GB'], ['steampowered.com', 'de_DE'],
-  ['reddit.com', 'en_US'], ['rakuten.co.jp', 'ja_JP'], ['airbnb.com', 'fr_FR'],
+  ['reddit.com', 'en_US'], ['airbnb.com', 'fr_FR'], ['zalando.com', 'da_DK'],
 ];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function typeInto(el, text, mask = false) {
-  el.classList.add('typing');
   el.innerHTML = '<span class="txt"></span><span class="caret"></span>';
   const span = el.querySelector('.txt');
   for (let i = 0; i < text.length; i++) {
     span.textContent += mask ? '•' : text[i];
     await sleep(14 + Math.random() * 22);
   }
-  el.classList.remove('typing');
-  el.classList.add('done');
   el.querySelector('.caret')?.remove();
 }
 
 async function heroLoop() {
   const url = $('m-url'), name = $('m-name'), email = $('m-email'),
         pass = $('m-pass'), btn = $('m-btn'), badge = $('m-badge');
-  if (!url) return;
   let i = 0;
   for (;;) {
     const [site, locale] = SHOWCASE[i % SHOWCASE.length];
@@ -138,7 +131,7 @@ async function heroLoop() {
       settings: { ...DEFAULT_SETTINGS, locale },
     });
     url.textContent = `${site}/signup`;
-    for (const el of [name, email, pass]) { el.textContent = ''; el.className = 'm-input'; }
+    for (const el of [name, email, pass]) el.textContent = '';
     badge.classList.remove('show');
     await sleep(650);
     await typeInto(name, p.fullName);
@@ -149,7 +142,7 @@ async function heroLoop() {
     await sleep(160);
     btn.classList.remove('press');
     badge.classList.add('show');
-    await sleep(2500);
+    await sleep(2600);
     i++;
   }
 }
@@ -168,10 +161,9 @@ async function heroStatic() {
 
 if (reduced) heroStatic(); else heroLoop();
 
-/* ---------- identity ticker ---------- */
+/* identity ticker */
 async function buildTicker() {
   const track = $('ticker');
-  if (!track) return;
   const locales = Object.keys(data.locales);
   const pills = [];
   for (let i = 0; pills.length < 14 && i < 40; i++) {
@@ -188,32 +180,7 @@ async function buildTicker() {
 }
 buildTicker();
 
-/* ---------- embers ---------- */
-const embers = document.querySelector('.embers');
-if (embers && !reduced) {
-  for (let i = 0; i < 16; i++) {
-    const e = document.createElement('span');
-    e.className = 'ember';
-    const s = 2 + Math.random() * 3;
-    e.style.width = e.style.height = `${s}px`;
-    e.style.left = `${5 + Math.random() * 90}%`;
-    e.style.setProperty('--drift', `${(Math.random() - 0.5) * 110}px`);
-    e.style.animationDuration = `${4.5 + Math.random() * 5.5}s`;
-    e.style.animationDelay = `${Math.random() * 8}s`;
-    e.style.background = ['#ff6a3d', '#ffb347', '#ff8a5c'][i % 3];
-    embers.append(e);
-  }
-}
-
-/* ---------- reveal on scroll ---------- */
-const io = new IntersectionObserver((entries) => {
-  for (const en of entries) {
-    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-  }
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-
-/* ---------- scrollspy ---------- */
+/* scrollspy */
 const spyLinks = [...document.querySelectorAll('[data-spy]')];
 const spyTargets = spyLinks.map((a) => document.querySelector(a.getAttribute('href')));
 const spy = new IntersectionObserver((entries) => {
@@ -223,14 +190,3 @@ const spy = new IntersectionObserver((entries) => {
   }
 }, { rootMargin: '-30% 0px -60% 0px' });
 spyTargets.forEach((t) => t && spy.observe(t));
-
-/* ---------- cursor glow on cards ---------- */
-if (matchMedia('(hover: hover)').matches) {
-  document.addEventListener('mousemove', (ev) => {
-    const card = ev.target.closest?.('.glow-card');
-    if (!card) return;
-    const r = card.getBoundingClientRect();
-    card.style.setProperty('--mx', `${ev.clientX - r.left}px`);
-    card.style.setProperty('--my', `${ev.clientY - r.top}px`);
-  }, { passive: true });
-}

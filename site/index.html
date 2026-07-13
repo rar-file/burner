@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Burner — every site gets a different you</title>
   <meta name="description" content="One click fills any signup form with a fake identity that stays consistent per site. Traceable emails show you who leaked your address. 100% local.">
-  <meta name="theme-color" content="#0e0e10">
+  <meta name="theme-color" content="#0f0f11">
   <link rel="canonical" href="https://burner-ext.vercel.app">
   <meta property="og:title" content="Burner — every site gets a different you">
   <meta property="og:description" content="One-click fake signup identities, deterministic per site. 100% local, zero accounts.">
@@ -38,7 +38,7 @@
 
 <nav id="nav">
   <a class="brand" href="#top">
-    <svg viewBox="0 0 100 100" width="22" height="22" aria-hidden="true"><use href="#flame-icon"/></svg>
+    <svg viewBox="0 0 100 100" width="20" height="20" aria-hidden="true"><use href="#flame-icon"/></svg>
     <span>Burner</span>
   </a>
   <div class="links">
@@ -46,37 +46,30 @@
     <a href="#leak" data-spy>Leaks</a>
     <a href="#how" data-spy>How</a>
     <a href="#faq" data-spy>FAQ</a>
+    <a href="https://github.com/rar-file/burner">GitHub</a>
   </div>
-  <a class="btn small primary" href="#install">Install</a>
+  <a class="btn primary small" href="#install">Install</a>
 </nav>
 
 <header id="top">
-  <div class="embers" aria-hidden="true"></div>
   <div class="hero">
     <div class="hero-copy">
-      <div class="eyebrow">
-        <svg viewBox="0 0 100 100" width="14" height="14" aria-hidden="true"><use href="#flame-icon"/></svg>
-        free · open source · 100% local
-      </div>
-      <h1>Every site gets<br><span class="hot">a different you.</span></h1>
+      <h1>Every site gets<br>a different you.</h1>
       <p class="sub">Burner fills signup forms with a fake identity in one click.
       The same site always gets the same identity — derived from math,
       stored nowhere, traceable when they sell you out.</p>
       <div class="cta-row">
-        <a class="btn primary big" href="#install">Get the extension</a>
-        <a class="btn big" href="https://github.com/rar-file/burner">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-          Star on GitHub
-        </a>
+        <a class="btn primary" href="#install">Get the extension</a>
+        <a class="btn" href="https://github.com/rar-file/burner">View on GitHub</a>
       </div>
-      <div class="trust">MIT licensed · activeTab only · no telemetry · built on <a href="https://github.com/rar-file/phoney">phoney</a></div>
+      <p class="trust">Free · open source · 100% local · no telemetry</p>
     </div>
 
     <div class="hero-mock" aria-hidden="true">
-      <div class="mock glow-card">
+      <div class="mock">
         <div class="mock-bar">
           <span class="mdot"></span><span class="mdot"></span><span class="mdot"></span>
-          <div class="mock-url"><svg width="10" height="12" viewBox="0 0 10 12" fill="none" stroke="#6c6c75" stroke-width="1.4"><rect x="1" y="5" width="8" height="6" rx="1.2"/><path d="M3 5V3.5a2 2 0 1 1 4 0V5"/></svg><span id="m-url">netflix.com</span></div>
+          <div class="mock-url"><span id="m-url">netflix.com</span></div>
         </div>
         <div class="mock-body">
           <div class="m-title">Create your account</div>
@@ -86,34 +79,25 @@
           <div class="m-btn" id="m-btn">Sign up</div>
         </div>
         <div class="m-badge" id="m-badge">
-          <svg viewBox="0 0 100 100" width="15" height="15"><use href="#flame-icon"/></svg>
+          <svg viewBox="0 0 100 100" width="13" height="13"><use href="#flame-icon"/></svg>
           <span>filled by Burner</span>
         </div>
       </div>
-      <div class="mock-glow"></div>
     </div>
   </div>
 
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track" id="ticker"></div>
-    <div class="ticker-fade left"></div>
-    <div class="ticker-fade right"></div>
   </div>
 </header>
 
 <main>
 
-<section id="demo" class="reveal">
-  <div class="eyebrow">№ 1 — try it</div>
-  <h2>This demo <span class="hot">is</span> the extension</h2>
+<section id="demo">
+  <h2>This demo is the extension</h2>
   <p class="lede">The exact generator that ships in the extension, running in your browser right now.
-  Type any website. Refresh the page. Type it again — <em>same identity</em>. That's the whole trick.</p>
-  <div class="demo-card glow-card">
-    <div class="demo-head">
-      <svg viewBox="0 0 100 100" width="16" height="16" aria-hidden="true"><use href="#flame-icon"/></svg>
-      <span class="demo-brand">Burner</span>
-      <span class="demo-site" id="d-shown">netflix.com</span>
-    </div>
+  Type any website. Refresh the page. Type it again — same identity. That's the whole trick.</p>
+  <div class="demo-card">
     <div class="demo-top">
       <input id="d-site" type="text" value="netflix.com" spellcheck="false" autocomplete="off" aria-label="Website">
       <select id="d-mode" aria-label="Email mode">
@@ -124,18 +108,17 @@
     </div>
     <div class="persona" id="d-card"></div>
     <div class="demo-bottom">
-      <button id="d-regen">↻ New identity</button>
+      <button id="d-regen">New identity</button>
       <span class="seed-note">your own seed, saved in this browser — nobody else sees these</span>
     </div>
   </div>
 </section>
 
-<section id="leak" class="reveal">
-  <div class="eyebrow">№ 2 — the receipts</div>
-  <h2>Know exactly who <span class="hot">sold you out</span></h2>
+<section id="leak">
+  <h2>Know exactly who sold you out</h2>
   <p class="lede">In tagged mode every site gets its own version of your real address — mail still arrives.
   So when spam shows up addressed to the Netflix tag, there's no mystery about who leaked it.</p>
-  <div class="inbox glow-card">
+  <div class="inbox">
     <div class="inbox-head">
       <span class="inbox-title">Inbox</span>
       <span class="inbox-addr">you@gmail.com</span>
@@ -148,112 +131,94 @@
     </div>
     <div class="mail">
       <span class="m-from">Duolingo</span>
-      <div class="m-mid"><span class="m-subj">Your daily reminder 🦉</span>
+      <div class="m-mid"><span class="m-subj">Your daily reminder</span>
       <span class="m-to">to: you+duolingo.p7x@gmail.com</span></div>
       <span class="m-when">Mar 9</span>
     </div>
-    <div class="mail spam">
-      <span class="m-from">🎰 MEGA-CASINO-WINZ</span>
+    <div class="mail">
+      <span class="m-from">MEGA-CASINO-WINZ</span>
       <div class="m-mid"><span class="m-subj">CLAIM YOUR $5000 NOW!!!</span>
-      <span class="m-to">to: you+netflix.k3f@gmail.com</span></div>
-      <span class="m-leak">↳ leaked by netflix.com</span>
+      <span class="m-to">to: you+netflix.k3f@gmail.com <em class="m-leak">← leaked by netflix.com</em></span></div>
       <span class="m-when">Jun 17</span>
     </div>
   </div>
-  <p class="caption">The tag never lies. Burner's <strong>Sites tab</strong> keeps the full ledger — every site, the exact email it got, and when.</p>
+  <p class="caption">The tag never lies. Burner's Sites tab keeps the full ledger — every site, the exact email it got, and when.</p>
 </section>
 
-<section id="how" class="reveal">
-  <div class="eyebrow">№ 3 — the trick</div>
-  <h2>Identities are <span class="hot">math</span>, not data</h2>
-  <p class="lede">Nothing is saved, synced, or sent. Personas are re-derived on the spot, every time, from one seed that never leaves your machine.</p>
+<section id="how">
+  <h2>Identities are math, not data</h2>
+  <p class="lede">Nothing is saved, synced, or sent. Personas are re-derived on the spot, every time,
+  from one seed that never leaves your machine.</p>
 
-  <div class="pipeline glow-card">
-    <div class="pipe-chip seed"><span class="pipe-k">your seed</span><code>c41f…9e02</code></div>
-    <span class="pipe-plus">+</span>
-    <div class="pipe-chip"><span class="pipe-k">the site</span><code>netflix.com</code></div>
-    <span class="pipe-arrow"><i></i><i></i><i></i></span>
-    <div class="pipe-chip hash"><span class="pipe-k">one-way hash</span><code>SHA-256</code></div>
-    <span class="pipe-arrow"><i></i><i></i><i></i></span>
-    <div class="pipe-chip out"><span class="pipe-k">the persona</span><code>Daryl Abbott</code></div>
-  </div>
+  <div class="formula"><code>SHA-256( <span>your seed</span> : <span>netflix.com</span> ) → Daryl Abbott</code></div>
 
   <div class="steps">
-    <div class="step glow-card"><span class="n">1</span>
-      <h3>One seed, rolled on install</h3>
+    <div class="step">
+      <h3><span class="n">1</span>One seed, rolled on install</h3>
       <p>32 hex characters, generated locally. Back it up and you can resurrect every identity on any machine. Lose it and they're gone — also a feature.</p></div>
-    <div class="step glow-card"><span class="n">2</span>
-      <h3>Same site, same you</h3>
-      <p>netflix.com hashes to the same persona today, next week, next year. You can actually <em>log back in</em> — Burner shows you the password again.</p></div>
-    <div class="step glow-card"><span class="n">3</span>
-      <h3>Burned? Regenerate</h3>
+    <div class="step">
+      <h3><span class="n">2</span>Same site, same you</h3>
+      <p>netflix.com hashes to the same persona today, next week, next year. You can actually log back in — Burner shows you the password again.</p></div>
+    <div class="step">
+      <h3><span class="n">3</span>Burned? Regenerate</h3>
       <p>One click bumps a counter for that site only and mints a fresh identity. Everything else stays put.</p></div>
   </div>
+
+  <p class="stats-line">0 servers · 0 accounts · 0 telemetry · 1 seed</p>
 </section>
 
-<div class="stats reveal" aria-label="Privacy stats">
-  <div class="stat"><span class="stat-n">0</span><span class="stat-k">servers</span></div>
-  <div class="stat"><span class="stat-n">0</span><span class="stat-k">accounts</span></div>
-  <div class="stat"><span class="stat-n">0</span><span class="stat-k">telemetry</span></div>
-  <div class="stat"><span class="stat-n hot">1</span><span class="stat-k">seed to rule them all</span></div>
-</div>
-
-<section id="modes" class="reveal">
-  <div class="eyebrow">№ 4 — email modes</div>
-  <h2>Three flavours of <span class="hot">not your problem</span></h2>
+<section id="modes">
+  <h2>Three email modes</h2>
   <div class="modes">
-    <div class="mode glow-card"><h3>Fully fake</h3><code>daryl.abbott65@yahoo.com</code>
+    <div class="mode"><h3>Fully fake</h3><code>daryl.abbott65@yahoo.com</code>
       <p>For sites that deserve nothing. Can't receive mail — that's the point.</p></div>
-    <div class="mode featured glow-card"><span class="flag">most popular</span><h3>Your email + tag</h3><code>you+netflix.k3f@gmail.com</code>
+    <div class="mode"><h3>Your email + tag <span class="note">most popular</span></h3><code>you+netflix.k3f@gmail.com</code>
       <p>Mail lands in your real inbox, tagged per site. Zero setup, fully traceable.</p></div>
-    <div class="mode glow-card"><h3>Catch-all domain</h3><code>netflix.k3f@mydomain.com</code>
+    <div class="mode"><h3>Catch-all domain</h3><code>netflix.k3f@mydomain.com</code>
       <p>Traceable <em>and</em> your real address stays secret. For people with their own domain.</p></div>
   </div>
 </section>
 
-<section id="features" class="reveal">
-  <div class="eyebrow">№ 5 — details</div>
-  <h2>Small tool, <span class="hot">sharp edges</span></h2>
+<section id="features">
+  <h2>Small tool, sharp edges</h2>
   <div class="grid">
-    <div class="feat glow-card"><h3>🔒 activeTab only</h3><p>No "read all your data on every website" warning. The fill script exists on a page only after you click.</p></div>
-    <div class="feat glow-card"><h3>🌍 17 locales</h3><p>Names, phone formats and email domains from en_US to ja_JP, via <a href="https://github.com/rar-file/phoney">phoney</a>.</p></div>
-    <div class="feat glow-card"><h3>🎯 Smart fill</h3><p>Labels, placeholders, autocomplete attrs, dropdowns, radios, confirm-fields — filled like a human, events and all.</p></div>
-    <div class="feat glow-card"><h3>📅 Stable birthdays</h3><p>Date pickers, three-part dropdowns, ISO inputs. Your Netflix self doesn't age. Lucky them.</p></div>
-    <div class="feat glow-card"><h3>📋 Copy anything</h3><p>Every field is click-to-copy for the forms that fight back.</p></div>
-    <div class="feat glow-card"><h3>🚫 Never checks boxes</h3><p>Terms of service are agreed to by you, not your extension. Checkboxes are untouchable.</p></div>
+    <div class="feat"><h3>activeTab only</h3><p>No "read all your data on every website" warning. The fill script exists on a page only after you click.</p></div>
+    <div class="feat"><h3>17 locales</h3><p>Names, phone formats and email domains from en_US to ja_JP, via <a href="https://github.com/rar-file/phoney">phoney</a>.</p></div>
+    <div class="feat"><h3>Smart fill</h3><p>Labels, placeholders, autocomplete attrs, dropdowns, radios, confirm-fields — filled like a human, events and all.</p></div>
+    <div class="feat"><h3>Stable birthdays</h3><p>Date pickers, three-part dropdowns, ISO inputs. Your Netflix self doesn't age. Lucky them.</p></div>
+    <div class="feat"><h3>Copy anything</h3><p>Every field is click-to-copy for the forms that fight back.</p></div>
+    <div class="feat"><h3>Never checks boxes</h3><p>Terms of service are agreed to by you, not your extension. Checkboxes are untouchable.</p></div>
   </div>
 </section>
 
-<section id="faq" class="reveal">
-  <div class="eyebrow">№ 6 — questions</div>
-  <h2>Fair <span class="hot">questions</span></h2>
+<section id="faq">
+  <h2>Fair questions</h2>
   <div class="faqs">
-    <details class="glow-card"><summary>Where are my identities stored?</summary>
+    <details><summary>Where are my identities stored?</summary>
       <p>Nowhere. They're re-computed from <code>SHA-256(seed : site)</code> every time you look at them. The only stored things are your seed, your settings, and the list of sites you've filled — all in local extension storage on your machine.</p></details>
-    <details class="glow-card"><summary>Is the password any good?</summary>
+    <details><summary>Is the password any good?</summary>
       <p>16 characters, four character classes, unique per site, recoverable from your seed. But Burner is not a password manager — no breach alerts, no sync, no vault. Use it for accounts you don't care about. That's the whole product.</p></details>
-    <details class="glow-card"><summary>Can sites tell it's fake?</summary>
+    <details><summary>Can sites tell it's fake?</summary>
       <p>Fields are set through native setters with real input events, so it looks like typing. But the phone number won't pass SMS verification and the email won't receive mail in fake mode — by design. Burner is for the "why do you even need this" forms, not for identity verification.</p></details>
-    <details class="glow-card"><summary>Is this… allowed?</summary>
+    <details><summary>Is this… allowed?</summary>
       <p>Giving a made-up name to a newsletter wall is fine. Fraud, KYC, payments, or anything with legal weight is not what this is for, and not what it's built to do. Be an adult.</p></details>
-    <details class="glow-card"><summary>Firefox? Web Store?</summary>
+    <details><summary>Firefox? Web Store?</summary>
       <p>Both on the roadmap. Today: Chrome, Brave, Edge and Arc via Load unpacked — takes 30 seconds, instructions below.</p></details>
   </div>
 </section>
 
-<section id="install" class="reveal">
-  <div class="eyebrow">№ 7 — install</div>
-  <h2>Thirty seconds, <span class="hot">tops</span></h2>
-  <div class="install-steps">
-    <div class="istep glow-card"><span class="n">1</span><p><a href="https://github.com/rar-file/burner/archive/refs/heads/main.zip">Download the zip</a> and unpack it, or <code>git clone</code></p></div>
-    <div class="istep glow-card"><span class="n">2</span><p>Open <code>chrome://extensions</code> → enable <strong>Developer mode</strong></p></div>
-    <div class="istep glow-card"><span class="n">3</span><p><strong>Load unpacked</strong> → choose the <code>extension/</code> folder</p></div>
-    <div class="istep glow-card"><span class="n">4</span><p>Pin the flame. Any signup page → click → <strong>Fill this page</strong></p></div>
+<section id="install">
+  <h2>Install in 30 seconds</h2>
+  <ol class="install">
+    <li><a href="https://github.com/rar-file/burner/archive/refs/heads/main.zip">Download the zip</a> and unpack it, or <code>git clone</code></li>
+    <li>Open <code>chrome://extensions</code> and enable <strong>Developer mode</strong></li>
+    <li><strong>Load unpacked</strong> → choose the <code>extension/</code> folder</li>
+    <li>Pin the flame. Any signup page → click → <strong>Fill this page</strong></li>
+  </ol>
+  <div class="cta-row">
+    <a class="btn primary" href="https://github.com/rar-file/burner">Get Burner</a>
   </div>
-  <div class="cta-row center">
-    <a class="btn primary big" href="https://github.com/rar-file/burner">Get Burner ↗</a>
-  </div>
-  <p class="dim center">Also: right-click → "Fill with Burner", or <code>Alt+Shift+B</code>. Web Store listing coming.</p>
+  <p class="dim">Also: right-click → "Fill with Burner", or <code>Alt+Shift+B</code>. Web Store listing coming.</p>
 </section>
 
 </main>
@@ -261,7 +226,7 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-brand">
-      <svg viewBox="0 0 100 100" width="20" height="20" aria-hidden="true"><use href="#flame-icon"/></svg>
+      <svg viewBox="0 0 100 100" width="17" height="17" aria-hidden="true"><use href="#flame-icon"/></svg>
       <span>Burner</span>
     </div>
     <div class="foot-links">
@@ -270,7 +235,7 @@
       <a href="https://github.com/rar-file/phoney">phoney</a>
       <a href="https://github.com/rar-file">RARcodes</a>
     </div>
-    <div class="foot-mit">MIT — every identity above is generated, any resemblance to real persons is math being funny</div>
+    <div class="foot-mit">MIT — every identity above is generated; any resemblance to real persons is math being funny</div>
   </div>
 </footer>
 
